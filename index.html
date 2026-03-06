@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLINTERS BASE — UI Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #0d1117;
+  --ink-mid: #4a5568;
+  --ink-light: #9aa5b4;
+  --accent: #1a4ff0;
+  --accent-lt: #eef2fe;
+  --border: #e2e8f0;
+  --bg: #f7f8fc;
+  --white: #ffffff;
+  --shadow: 0 2px 8px rgba(0,0,0,.06), 0 8px 32px rgba(0,0,0,.06);
+  --shadow-hover: 0 4px 16px rgba(0,0,0,.08), 0 16px 48px rgba(26,79,240,.12);
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Noise texture overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Background grid ── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(26,79,240,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,79,240,.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Header ── */
+header {
+  position: relative;
+  z-index: 10;
+  padding: 72px 32px 56px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  background: var(--white);
+}
+
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.eyebrow::before,
+.eyebrow::after {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--accent);
+  opacity: .4;
+}
+
+h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 600;
+  letter-spacing: -.01em;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--ink-mid);
+  font-weight: 300;
+  letter-spacing: .02em;
+}
+
+/* ── Main grid ── */
+main {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 64px 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 28px;
+  align-items: start;
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s cubic-bezier(.16,1,.3,1);
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card-preview {
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Roadmap preview */
+.preview-roadmap {
+  background: #e8eaef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.preview-roadmap-inner {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.08);
+  font-size: 10px;
+}
+
+.prev-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.prev-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.prev-bar {
+  height: 8px;
+  border-radius: 4px;
+  flex: 1;
+}
+
+.prev-tag {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+/* Eval form preview */
+.preview-eval {
+  background: #f4f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.preview-eval-inner {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.08);
+}
+
+.prev-field {
+  height: 28px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  border: 1.5px solid #e3e6ee;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  font-size: 9px;
+  color: #9099ac;
+  font-family: 'DM Mono', monospace;
+}
+
+.prev-radio-group {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.prev-radio {
+  flex: 1;
+  height: 26px;
+  border-radius: 5px;
+  border: 1.5px solid #e3e6ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  color: #9099ac;
+  font-family: 'DM Mono', monospace;
+  cursor: default;
+}
+
+.prev-radio.active {
+  background: #eef2fe;
+  border-color: #1a4ff0;
+  color: #1a4ff0;
+}
+
+.prev-btn {
+  width: 100%;
+  height: 28px;
+  border-radius: 6px;
+  background: #1a4ff0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: white;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: .08em;
+}
+
+/* Card body */
+.card-body {
+  padding: 28px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: .12em;
+  margin-bottom: 10px;
+  opacity: .7;
+}
+
+.card-title {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: var(--ink-mid);
+  line-height: 1.7;
+  font-weight: 300;
+  flex: 1;
+  margin-bottom: 24px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.card-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: var(--accent-lt);
+  color: var(--accent);
+  letter-spacing: .04em;
+}
+
+.card-arrow {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background .2s, transform .2s;
+}
+
+.card:hover .card-arrow {
+  background: var(--accent);
+  transform: translateX(3px);
+}
+
+.card-arrow svg {
+  width: 14px; height: 14px;
+}
+
+/* ── Footer ── */
+footer {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 32px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-light);
+  letter-spacing: .06em;
+  border-top: 1px solid var(--border);
+  background: var(--white);
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+header { animation: fadeUp .6s ease both; }
+.card:nth-child(1) { animation: fadeUp .6s .15s ease both; }
+.card:nth-child(2) { animation: fadeUp .6s .25s ease both; }
+
+@media (max-width: 600px) {
+  main { grid-template-columns: 1fr; padding: 40px 16px; }
+  header { padding: 48px 20px 40px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">FLINTERS BASE &nbsp;·&nbsp; UI Demo</div>
+  <h1>プロダクトデモ</h1>
+  <p class="subtitle">以下のデモをクリックしてご確認ください</p>
+</header>
+
+<main>
+
+  <!-- Card 1: Roadmap UI -->
+  <a class="card" href="roadmap_ui_v2.html">
+    <div class="card-preview preview-roadmap">
+      <div class="preview-roadmap-inner">
+        <div class="prev-row">
+          <div class="prev-dot" style="background:#2557e7"></div>
+          <div class="prev-bar" style="background:#eef2fd; width:60%"></div>
+          <div class="prev-tag" style="background:#eef2fd;color:#2557e7">進行中</div>
+        </div>
+        <div class="prev-row">
+          <div class="prev-dot" style="background:#15803d"></div>
+          <div class="prev-bar" style="background:#f0fdf4; width:80%"></div>
+          <div class="prev-tag" style="background:#f0fdf4;color:#15803d">完了</div>
+        </div>
+        <div class="prev-row">
+          <div class="prev-dot" style="background:#7c3aed"></div>
+          <div class="prev-bar" style="background:#f5f3ff; width:40%"></div>
+          <div class="prev-tag" style="background:#f5f3ff;color:#7c3aed">AI支援</div>
+        </div>
+        <div class="prev-row" style="margin-bottom:0">
+          <div class="prev-dot" style="background:#b45309"></div>
+          <div class="prev-bar" style="background:#fffbeb; width:55%"></div>
+          <div class="prev-tag" style="background:#fffbeb;color:#b45309">予定</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-num">01 / 02</div>
+      <div class="card-title">実績・貢献定義 UI</div>
+      <p class="card-desc">エンジニアのロードマップと実績・貢献を可視化するUIイメージ。進捗ステータスやAI支援機能を含むダッシュボード画面。</p>
+      <div class="card-footer">
+        <div class="card-tags">
+          <span class="tag">ロードマップ</span>
+          <span class="tag">ダッシュボード</span>
+        </div>
+        <div class="card-arrow">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 8h10M9 4l4 4-4 4"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <!-- Card 2: Eval Form -->
+  <a class="card" href="customer_eval_form.html">
+    <div class="card-preview preview-eval">
+      <div class="preview-eval-inner">
+        <div class="prev-field">氏名 / エンジニア名</div>
+        <div class="prev-radio-group">
+          <div class="prev-radio">1</div>
+          <div class="prev-radio">2</div>
+          <div class="prev-radio active">3</div>
+          <div class="prev-radio">4</div>
+          <div class="prev-radio">5</div>
+        </div>
+        <div class="prev-field" style="height:44px; align-items:flex-start; padding-top:8px;">コメント欄</div>
+        <div class="prev-btn">送信する →</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-num">02 / 02</div>
+      <div class="card-title">エンジニア定期評価フォーム</div>
+      <p class="card-desc">FLINTERS BASE のエンジニア向け定期評価フォーム。評価項目への回答・コメント入力・送信機能を備えたフォームUI。</p>
+      <div class="card-footer">
+        <div class="card-tags">
+          <span class="tag">評価フォーム</span>
+          <span class="tag">エンジニア</span>
+        </div>
+        <div class="card-arrow">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 8h10M9 4l4 4-4 4"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </a>
+
+</main>
+
+<footer>FLINTERS BASE &nbsp;·&nbsp; UI Demo &nbsp;·&nbsp; 2026</footer>
+
+</body>
+</html>
