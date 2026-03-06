@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>実績・貢献定義 UIイメージ v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:        #0f1117;
+  --ink-mid:    #4b5263;
+  --ink-light:  #8c95a6;
+  --border:     #e2e5ec;
+  --bg:         #f6f7fa;
+  --white:      #ffffff;
+  --accent:     #2557e7;
+  --accent-lt:  #eef2fd;
+  --green:      #15803d;
+  --green-lt:   #f0fdf4;
+  --green-md:   #22c55e;
+  --amber:      #b45309;
+  --amber-lt:   #fffbeb;
+  --teal:       #0d9488;
+  --teal-lt:    #f0fdfa;
+  --violet:     #7c3aed;
+  --violet-lt:  #f5f3ff;
+  --ai:         #6d28d9;
+  --ai-lt:      #f5f3ff;
+  --ai-border:  #ddd6fe;
+  --radius:     9px;
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04);
+}
+
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: #e8eaef;
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ── PAGE HEADER ── */
+.page-header {
+  background: var(--ink);
+  padding: 24px 48px;
+  display: flex; align-items: baseline; gap: 18px;
+  border-bottom: 1px solid #1e2330;
+}
+.page-header h1 { font-size: 17px; font-weight: 500; color: #fff; letter-spacing: .03em; }
+.page-header span { font-size: 11px; color: #5a6070; font-weight: 300; }
+
+.section-wrap { padding: 32px 48px; }
+.section-label {
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-light); font-weight: 600; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.sep {
+  background: #e4e6eb; height: 30px; display: flex; align-items: center;
+  padding: 0 48px; font-size: 10px; font-weight: 700; color: #9aa0ae;
+  letter-spacing: .1em; text-transform: uppercase;
+  border-top: 1px solid #d8dbe3; border-bottom: 1px solid #d8dbe3;
+}
+
+/* ── CHROME ── */
+.chrome {
+  background: var(--white); border-radius: 13px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.08), 0 16px 48px rgba(0,0,0,.08);
+  overflow: hidden; border: 1px solid #d4d8e2;
+}
+.chrome-bar {
+  background: #ededf0; height: 36px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; padding: 0 14px; gap: 7px;
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.r{background:#fc6058} .dot.y{background:#fec02f} .dot.g{background:#2ac940}
+.url-bar {
+  margin-left: 10px; background: var(--white); border: 1px solid var(--border);
+  border-radius: 5px; padding: 3px 12px; font-size: 11px; color: var(--ink-light);
+  width: 320px; font-family: 'DM Mono', monospace;
+}
+
+/* ── SHELL ── */
+.app-shell { display: flex; min-height: 620px; }
+
+/* SIDEBAR */
+.sidebar {
+  width: 210px; min-width: 210px; background: var(--ink);
+  padding: 22px 0; display: flex; flex-direction: column;
+}
+.sidebar-logo {
+  padding: 0 18px 20px; font-size: 14px; font-weight: 700; color: #fff;
+  letter-spacing: .02em; border-bottom: 1px solid #ffffff12;
+}
+.sidebar-logo em { color: var(--accent); font-style: normal; }
+.sidebar-sec { padding: 16px 0 4px; }
+.sidebar-sec-label {
+  font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+  color: #404959; padding: 0 18px; margin-bottom: 4px; font-weight: 600;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 9px; padding: 8px 18px;
+  color: #7a8494; font-size: 12px; cursor: pointer;
+}
+.nav-item.active { color: #fff; background: #ffffff0d; border-left: 2px solid var(--accent); }
+.sidebar-foot {
+  margin-top: auto; padding: 14px 18px; border-top: 1px solid #ffffff12;
+  display: flex; align-items: center; gap: 9px;
+}
+.av { border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; flex-shrink: 0; }
+.av-sm { width: 28px; height: 28px; font-size: 10px; background: var(--accent); }
+.user-name { font-size: 11px; color: #cdd1db; font-weight: 500; }
+.user-role { font-size: 10px; color: #454e5e; }
+
+/* MAIN */
+.main { flex: 1; background: var(--bg); display: flex; flex-direction: column; overflow: hidden; }
+.topbar {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 0 24px; height: 50px;
+  display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+}
+.topbar-title { font-size: 14px; font-weight: 600; }
+.topbar-actions { display: flex; gap: 8px; align-items: center; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 5px; padding: 6px 14px;
+  border-radius: 7px; font-size: 12px; font-weight: 500; cursor: pointer;
+  font-family: inherit; border: none;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-secondary { background: var(--white); color: var(--ink-mid); border: 1px solid var(--border); }
+.btn-ghost { background: transparent; color: var(--ink-light); border: 1px solid var(--border); }
+
+.content { flex: 1; padding: 20px 24px; overflow-y: auto; }
+
+/* CARD */
+.card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
+.card-header { padding: 13px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.card-title { font-size: 13px; font-weight: 600; }
+.card-body { padding: 16px 18px; }
+
+/* BADGE */
+.badge { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 100px; font-size: 10px; font-weight: 600; }
+.badge-green  { background: var(--green-lt);  color: var(--green); }
+.badge-amber  { background: var(--amber-lt);  color: var(--amber); }
+.badge-blue   { background: var(--accent-lt); color: var(--accent); }
+.badge-teal   { background: var(--teal-lt);   color: var(--teal); }
+.badge-violet { background: var(--violet-lt); color: var(--violet); }
+.badge-gray   { background: #f1f3f7; color: var(--ink-light); }
+.badge-ai     { background: var(--ai-lt); color: var(--ai); }
+
+.tag {
+  display: inline-block; padding: 2px 7px; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 4px;
+  font-size: 10px; color: var(--ink-mid); font-weight: 500;
+}
+
+/* AXIS TAG */
+.axis-tag { display: inline-flex; align-items: center; gap: 3px; padding: 1px 6px; border-radius: 3px; font-size: 9px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.axis-grade    { background: var(--accent-lt); color: var(--accent); }
+.axis-personal { background: var(--amber-lt);  color: var(--amber); }
+
+/* PROGRESS */
+.prog { height: 5px; background: #e6e9f0; border-radius: 99px; overflow: hidden; }
+.prog-fill { height: 100%; border-radius: 99px; }
+
+/* TABS */
+.tabs { display: flex; border-bottom: 1px solid var(--border); padding: 0 18px; }
+.tab { padding: 10px 14px; font-size: 12px; font-weight: 500; color: var(--ink-light); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* DIVIDER */
+.divider { height: 1px; background: var(--border); margin: 14px 0; }
+
+/* NOTICE */
+.notice { display: flex; gap: 8px; padding: 10px 14px; border-radius: 7px; font-size: 11px; line-height: 1.6; margin-bottom: 14px; }
+.notice-blue  { background: var(--accent-lt); color: var(--accent); border: 1px solid #bfdbfe; }
+.notice-amber { background: var(--amber-lt);  color: var(--amber);  border: 1px solid #fde68a; }
+.notice-ai    { background: var(--ai-lt);     color: var(--ai);     border: 1px solid var(--ai-border); }
+
+/* TWO COL */
+.two-col { display: grid; grid-template-columns: 1fr 300px; gap: 18px; }
+
+/* ── ROADMAP RAIL ── */
+.roadmap-rail { display: flex; flex-direction: column; position: relative; padding-left: 48px; }
+.roadmap-rail::before {
+  content: ''; position: absolute; left: 16px; top: 16px; bottom: 16px;
+  width: 2px; background: linear-gradient(to bottom, var(--accent) 0%, var(--teal) 60%, var(--violet) 100%);
+  opacity: .2; border-radius: 2px;
+}
+.grade-row { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 12px; position: relative; }
+.grade-node {
+  position: absolute; left: -48px; top: 0;
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; font-family: 'DM Mono', monospace;
+  border: 2px solid; background: var(--white); flex-shrink: 0; z-index: 1;
+}
+.grade-node.done { background: var(--green-lt);  border-color: var(--green-md); color: var(--green); }
+.grade-node.now  { background: var(--accent);     border-color: var(--accent);   color: #fff; box-shadow: 0 0 0 3px var(--accent-lt); }
+.grade-node.next { background: var(--white);       border-color: var(--border);   color: var(--ink-light); }
+.grade-node.spec { background: var(--teal-lt);    border-color: var(--teal);     color: var(--teal); }
+.grade-node.lead { background: var(--violet-lt);  border-color: var(--violet);   color: var(--violet); }
+
+.grade-card { flex: 1; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
+.grade-card.active-card { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-lt), var(--shadow-sm); }
+
+.grade-card-header {
+  padding: 9px 14px; display: flex; align-items: center; justify-content: space-between;
+  background: var(--bg); border-bottom: 1px solid var(--border);
+}
+.grade-name { font-size: 12px; font-weight: 700; }
+.grade-range { font-size: 10px; color: var(--ink-light); font-family: 'DM Mono', monospace; margin-left: 8px; }
+
+/* CRITERIA ROWS */
+.criteria-list { padding: 10px 14px; display: flex; flex-direction: column; gap: 0; }
+.criteria-row {
+  display: grid;
+  grid-template-columns: 1fr 80px;
+  align-items: start;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f3f4f7;
+}
+.criteria-row:last-child { border-bottom: none; }
+.criteria-main { display: flex; align-items: flex-start; gap: 7px; }
+.criteria-icon { width: 15px; height: 15px; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.ci-c { background: var(--accent-lt); }
+.ci-a { background: var(--green-lt); }
+.ci-i { background: var(--amber-lt); }
+.criteria-text { font-size: 11px; color: var(--ink-mid); line-height: 1.5; }
+.criteria-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+
+/* PHASE LABEL */
+.phase-label {
+  margin: 10px 0 10px -48px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.phase-chip {
+  font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  padding: 2px 10px; border-radius: 4px; border: 1px solid;
+}
+.phase-growth { background: var(--bg); border-color: var(--border); color: var(--ink-light); }
+.phase-spec   { background: var(--teal-lt); border-color: #99f6e4; color: var(--teal); }
+.phase-lead   { background: var(--violet-lt); border-color: #ddd6fe; color: var(--violet); }
+
+/* LEGEND */
+.legend { display: flex; gap: 14px; flex-wrap: wrap; padding: 10px 14px; background: var(--bg); border-top: 1px solid var(--border); }
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--ink-mid); }
+.legend-dot { width: 8px; height: 8px; border-radius: 3px; }
+
+/* ── AI BADGE ── */
+.ai-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: var(--ai-lt); border: 1px solid var(--ai-border);
+  border-radius: 5px; padding: 2px 8px;
+  font-size: 10px; font-weight: 600; color: var(--ai);
+}
+
+/* ── RECORD CARD ── */
+.record-section-label {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 10px;
+}
+.record-section-label span { font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-light); }
+.record-section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.rec-card { border-radius: 8px; overflow: hidden; margin-bottom: 8px; border: 1px solid; }
+.rec-card.approved { border-color: #bbf7d0; }
+.rec-card.pending  { border-color: #fde68a; }
+.rec-card.empty    { border-color: var(--border); }
+
+.rec-header {
+  padding: 9px 13px; display: flex; align-items: center; justify-content: space-between;
+}
+.rec-header.approved { background: var(--green-lt); }
+.rec-header.pending  { background: var(--amber-lt); }
+.rec-header.empty    { background: var(--bg); }
+
+.rec-header-left { display: flex; align-items: center; gap: 8px; }
+.rec-status-dot { width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.rsd-green { background: var(--green); }
+.rsd-amber { background: var(--amber); }
+.rsd-gray  { border: 2px solid var(--border); background: var(--white); }
+
+.rec-req-label { font-size: 11px; font-weight: 600; }
+.rec-req-label.approved { color: var(--green); }
+.rec-req-label.pending  { color: var(--amber); }
+.rec-req-label.empty    { color: var(--ink-light); }
+
+.rec-body { padding: 11px 13px; background: var(--white); }
+.rec-title { font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+.rec-desc  { font-size: 11px; color: var(--ink-mid); line-height: 1.6; }
+.rec-meta  { margin-top: 8px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.rec-date-pair { display: flex; flex-direction: column; }
+.rec-date-label { font-size: 9px; color: var(--ink-light); }
+.rec-date-val   { font-size: 11px; font-weight: 600; color: var(--ink); }
+.rec-date-val.green { color: var(--green); }
+.rec-date-val.amber { color: var(--amber); }
+
+/* AI MAPPING PILL */
+.ai-mapping {
+  display: flex; align-items: flex-start; gap: 8px;
+  background: var(--ai-lt); border: 1px solid var(--ai-border);
+  border-radius: 7px; padding: 10px 12px; margin-top: 10px;
+}
+.ai-mapping-label { font-size: 10px; font-weight: 700; color: var(--ai); white-space: nowrap; margin-top: 1px; }
+.ai-mapping-body  { font-size: 11px; color: #4c1d95; line-height: 1.5; }
+.ai-confidence {
+  display: inline-flex; align-items: center; gap: 3px;
+  background: #ede9fe; border-radius: 4px; padding: 1px 6px;
+  font-size: 10px; font-weight: 700; color: var(--ai); margin-left: 4px;
+}
+
+/* FORM */
+.form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+.form-label { font-size: 10px; font-weight: 700; color: var(--ink-mid); letter-spacing: .04em; text-transform: uppercase; }
+.form-control {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 7px;
+  padding: 8px 12px; font-size: 12px; color: var(--ink); font-family: inherit;
+}
+textarea.form-control { resize: vertical; min-height: 80px; }
+select.form-control { appearance: none; }
+
+/* EMPTY ADD */
+.add-row {
+  border: 1.5px dashed var(--border); border-radius: 8px;
+  padding: 12px 14px; display: flex; align-items: center; justify-content: center;
+  gap: 6px; cursor: pointer; background: var(--bg);
+  font-size: 11px; color: var(--ink-light);
+}
+
+/* GRADE DIST */
+.dist-row { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
+.dist-label { font-size: 11px; font-family: 'DM Mono', monospace; font-weight: 600; min-width: 22px; }
+
+/* KV */
+.kv-row { display: flex; gap: 6px; align-items: baseline; margin-bottom: 6px; }
+.kv-k { font-size: 10px; color: var(--ink-light); min-width: 72px; font-weight: 600; }
+.kv-v { font-size: 12px; color: var(--ink); font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>実績・貢献定義 / キャリアロードマップ — UIイメージ v2</h1>
+  <span>成果ベース指標 × AI振分け補助　経営層プレゼン用モックアップ　2026.03</span>
+</div>
+
+
+<!-- ═══════════ SCREEN A: MANAGER ═══════════ -->
+<div class="section-wrap">
+  <div class="section-label">Screen A &nbsp;グレード別 貢献・実績定義マスタ（マネージャー）</div>
+  <div class="chrome">
+    <div class="chrome-bar">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <div class="url-bar">app.flb-eval.internal / master / roadmap</div>
+    </div>
+    <div class="app-shell">
+      <div class="sidebar">
+        <div class="sidebar-logo">FLB<em>.</em>Eval</div>
+        <div class="sidebar-sec">
+          <div class="sidebar-sec-label">メニュー</div>
+          <div class="nav-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>ダッシュボード</div>
+          <div class="nav-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>メンバー管理</div>
+          <div class="nav-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>承認管理</div>
+        </div>
+        <div class="sidebar-sec">
+          <div class="sidebar-sec-label">設定・マスタ</div>
+          <div class="nav-item active"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>ロードマップ定義</div>
+          <div class="nav-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 115 18.07"/></svg>AI判定ログ</div>
+        </div>
+        <div class="sidebar-foot">
+          <div class="av av-sm">青</div>
+          <div><div class="user-name">青山 太郎</div><div class="user-role">マネージャー</div></div>
+        </div>
+      </div>
+
+      <div class="main">
+        <div class="topbar">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="topbar-title">ロードマップ定義</div>
+            <span class="badge badge-gray">v2.1 公開中</span>
+          </div>
+          <div class="topbar-actions">
+            <button class="btn btn-ghost">変更履歴</button>
+            <button class="btn btn-secondary">下書き保存</button>
+            <button class="btn btn-primary">変更を公開</button>
+          </div>
+        </div>
+
+        <div class="content">
+
+          <!-- POLICY NOTICE -->
+          <div class="notice notice-blue" style="margin-bottom:18px">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span>評価指標は <strong>「何をするか（手段）」ではなく「何をもたらしたか（成果）」</strong> で定義します。派遣先の多様性に関わらず同一基準で測定できるよう、成果・インパクトベースで記述してください。エンジニアの自由記述実績はAIが1次振分けを行い、マネージャーが最終承認します。</span>
+          </div>
+
+          <div class="two-col">
+            <!-- LEFT: ROADMAP -->
+            <div>
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">グレード別 評価基準（成果ベース）</div>
+                  <div style="display:flex;gap:6px">
+                  </div>
+                </div>
+                <div class="legend">
+                  <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>顧客貢献（成果・インパクト・自立性）</div>
+                  <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>組織貢献</div>
+                </div>
+
+                <div class="card-body" style="padding:20px 18px 20px 66px">
+                  <div class="roadmap-rail">
+
+                    <!-- 成長フェーズ -->
+                    <div class="phase-label"><span class="phase-chip phase-growth">成長フェーズ　G1〜G3　全員共通</span></div>
+
+                    <!-- G1 -->
+                    <div class="grade-row">
+                      <div class="grade-node done">G1</div>
+                      <div class="grade-card">
+                        <div class="grade-card-header">
+                          <div><span class="grade-name">G1　エントリー</span><span class="grade-range">〜 70万円 / 月</span></div>
+                          <span class="badge badge-green">定義済</span>
+                        </div>
+                        <div class="criteria-list">
+                          <div class="criteria-row">
+                            <div class="criteria-main">
+                              <div class="criteria-icon ci-c"><svg width="8" height="8" viewBox="0 0 24 24" fill="var(--accent)"><circle cx="12" cy="12" r="10"/></svg></div>
+                              <span class="criteria-text">アサインされたタスクを期日通りに完了できる（遅延率 10%以下）</span>
+                            </div>
+                          </div>
+                          <div class="criteria-row">
+                            <div class="criteria-main">
+                              <div class="criteria-icon ci-c"><svg width="8" height="8" viewBox="0 0 24 24" fill="var(--accent)"><circle cx="12" cy="12" r="10"/></svg></div>
+                              <span class="criteria-text">成果物が顧客の期待水準を満たしている（レビュー指摘 3件以下/PR）</span>
+                            </div>
+                          </div>
+                          <div class="criteria-row">
+                            <div class="criteria-main">
+                              <div class="criteria-icon ci-c"><svg width="8" height="8" viewBox="0 0 24 24" fill="var(--accent)"><circle cx="12" cy="12" r="10"/></svg></div>
+                              <span class="criteria-text">上長への確認・相談が週3回以内に収まっている</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- G2 -->
+                    <div class="grade-row">
+                      <div class="grade-node done">G2</div>
+                      <div class="grade-card">
+                        <div class="grade-card-header">
+                          <div><span class="grade-name">G2　ジュニア</span><span class="grade-range">〜 80万円 / 月</span></div>
+                          <span class="badge badge-green">定義済</span>
+                        </div>
+                        <div class="criteria-list">
+                          <div class="criteria-row">
+                            <div class="criteria-main">
+                              <div class="criteria-icon ci-c"><svg width="8" height="8" viewBox="0 0 24 24" fill="var(--accent)"><circle cx="12" cy="12" r="10"/></svg></div>
+                              <span class="criteria-text">顧客定期評価で「期待通り」以上の評価を2期連続で獲得している</span>
+                            </div>
+                          </div>
+                          <div class="criteria-row">
+                            <div class="criteria-main">
+                              <div class="criteria-icon ci-c"><svg width="8" height="8" viewBox="0 0 24 24" fill="var(--accent)"><circle cx="12" cy="12" r="10"/></svg></div>
+                              <span class="criteria-text">上長への週次確認が月1回以下に減少し、自走タスク比率が向上している</span>
+                            </div>
+                          </div>
+                          <div class="criteria-row">
+                            <div class="criteria-main">
+                              <div class="criteria-icon ci-i"><svg width="8" height="8" viewBox="0 0 24 24" fill="var(--amber)"><circle cx="12" cy="12" r="10"/></svg></div>
+                              <span class="criteria-text">社内勉強会・ドキュメント整備などへの貢献実績がある（任意加点）</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- G3 -->
+                    <div class="grade-row">
+                      <div class="grade-node now">G3</div>
+                      <div class="grade-card active-card">
+                        <div class="grade-card-header">
+                          <div><span class="grade-name">G3　ミドル</span><span class="grade-range">〜 90万円 / 月</span></div>
+                          <span class="badge badge-blue">編集中</span>
+                        </div>
+                        <div class="criteria-list">
+                          <div class="criteria-row">
+                            <div class="criteria-main">
+                              <div class="criteria-icon ci-c"><svg width="8" height="8" viewBox="0 0 24 24" fill="var(--accent)"><circle cx="12" cy="12" r="10"/></svg></div>
+                              <span class="criteria-text">顧客業務に対して、自発的な改善提案を行い、採用・実施された実績が1件以上ある</span>
+                            </div>
+                          </div>
+                          <div class="criteria-row">
+                            <div class="criteria-main">
+                              <div class="criteria-icon ci-c"><svg width="8" height="8" viewBox="0 0 24 24" fill="var(--accent)"><circle cx="12" cy="12" r="10"/></svg></div>
+                              <span class="criteria-text">上長介入なしで完結したタスクが全体の80%以上を占めている</span>
+                            </div>
+                          </div>
+                          <div class="criteria-row">
+                            <div class="criteria-main">
+                              <div class="criteria-icon ci-i"><svg width="8" height="8" viewBox="0 0 24 24" fill="var(--amber)"><circle cx="12" cy="12" r="10"/></svg></div>
+                              <span class="criteria-text">後輩エンジニアへの技術サポートや知識共有など組織貢献の実績がある</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- 専門フェーズ -->
+                    <div class="phase-label" style="margin-top:4px"><span class="phase-chip phase-spec">専門フェーズ　S4〜S5　トラック分岐</span></div>
+
+                    <!-- S4 -->
+                    <div class="grade-row">
+                      <div class="grade-node spec">S4</div>
+                      <div class="grade-card">
+                        <div class="grade-card-header">
+                          <div><span class="grade-name">S4　スペシャリスト</span><span class="grade-range">〜 120万円 / 月</span></div>
+                          <div style="display:flex;gap:4px"><span class="badge badge-teal">可視化</span><span class="badge badge-teal">インフラ</span><span class="badge badge-teal">品質保守</span></div>
+                        </div>
+                        <div class="criteria-list">
+                          <div class="criteria-row">
+                            <div class="criteria-main">
+                              <div class="criteria-icon ci-c"><svg width="8" height="8" viewBox="0 0 24 24" fill="var(--accent)"><circle cx="12" cy="12" r="10"/></svg></div>
+                              <span class="criteria-text">専門トラック領域において、顧客ビジネスへの定量的な貢献を1件以上実証している（数値・エビデンスあり）</span>
+                            </div>
+                          </div>
+                          <div class="criteria-row">
+                            <div class="criteria-main">
+                              <div class="criteria-icon ci-c"><svg width="8" height="8" viewBox="0 0 24 24" fill="var(--accent)"><circle cx="12" cy="12" r="10"/></svg></div>
+                              <span class="criteria-text">顧客から技術的な相談・依頼を直接受けられる信頼関係を構築している（顧客評価 4.0/5.0以上）</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- S5 -->
+                    <div class="grade-row">
+                      <div class="grade-node spec" style="background:var(--teal);border-color:var(--teal);color:#fff">S5</div>
+                      <div class="grade-card">
+                        <div class="grade-card-header">
+                          <div><span class="grade-name">S5　シニアスペシャリスト</span><span class="grade-range">〜 150万円 / 月</span></div>
+                          <span class="badge badge-green">定義済</span>
+                        </div>
+                        <div class="criteria-list">
+                          <div class="criteria-row">
+                            <div class="criteria-main">
+                              <div class="criteria-icon ci-c"><svg width="8" height="8" viewBox="0 0 24 24" fill="var(--accent)"><circle cx="12" cy="12" r="10"/></svg></div>
+                              <span class="criteria-text">複数案件で再現性のある貢献実績を持ち、他エンジニアが参照できる形で社内展開している</span>
+                            </div>
+                          </div>
+                          <div class="criteria-row">
+                            <div class="criteria-main">
+                              <div class="criteria-icon ci-c"><svg width="8" height="8" viewBox="0 0 24 24" fill="var(--accent)"><circle cx="12" cy="12" r="10"/></svg></div>
+                              <span class="criteria-text">顧客の上流（要件定義・設計）から自律的に関与できる実績がある（顧客評価 4.5/5.0以上）</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- リーダー別軸 -->
+                    <div class="phase-label" style="margin-top:4px"><span class="phase-chip phase-lead">リーダー・管理職　別軸評価（社内指標）</span></div>
+                    <div class="grade-row">
+                      <div class="grade-node lead">Lv</div>
+                      <div class="grade-card">
+                        <div class="grade-card-header">
+                          <div><span class="grade-name">テックリード / マネージャー</span><span class="grade-range">社内指標による別評価</span></div>
+                          <span class="badge badge-violet">管理職</span>
+                        </div>
+                        <div class="criteria-list">
+                          <div class="criteria-row">
+                            <div class="criteria-main">
+                              <div class="criteria-icon" style="background:var(--violet-lt)"><svg width="8" height="8" viewBox="0 0 24 24" fill="var(--violet)"><circle cx="12" cy="12" r="10"/></svg></div>
+                              <span class="criteria-text">技術職グレード（G1〜S5）とは独立した評価軸。組織貢献・育成成果で評価</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT PANEL -->
+            <div style="display:flex;flex-direction:column;gap:14px">
+
+              <div class="card">
+                <div class="card-header"><div class="card-title">評価軸の役割</div></div>
+                <div class="card-body" style="padding:13px 16px;display:flex;flex-direction:column;gap:10px">
+                  <div style="background:var(--accent-lt);border:1px solid #bfdbfe;border-radius:7px;padding:11px 13px">
+                    <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:6px">顧客貢献（グレード連動）</div>
+                    <div style="font-size:11px;color:var(--ink-mid);line-height:1.7">
+                      <div style="display:flex;align-items:flex-start;gap:5px"><div class="legend-dot" style="background:var(--accent);flex-shrink:0;margin-top:4px"></div>顧客貢献：成果・インパクト・自立性（指導負荷低減）を含む</div>
+                    </div>
+                  </div>
+                  <div style="background:var(--amber-lt);border:1px solid #fde68a;border-radius:7px;padding:11px 13px">
+                    <div style="font-size:11px;font-weight:700;color:var(--amber);margin-bottom:4px">組織貢献（単価非連動）</div>
+                    <div style="font-size:11px;color:var(--ink-mid);">勉強会・メンタリング・ドキュメント整備など組織の成長に資する活動</div>
+                    <div style="font-size:10px;color:var(--amber);margin-top:4px">※ 顧客請求単価には反映されない</div>
+                  </div>
+                  <div style="background:var(--ai-lt);border:1px solid var(--ai-border);border-radius:7px;padding:11px 13px">
+                    <div style="font-size:11px;font-weight:700;color:var(--ai);margin-bottom:4px">🤖 AI振分けの役割</div>
+                    <div style="font-size:11px;color:#4c1d95;line-height:1.6">エンジニアの自由記述実績を受け取り、どのグレード要件に該当するかを1次判定。マネージャーが確認・最終承認する。</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header"><div class="card-title">グレード分布（現在）</div></div>
+                <div class="card-body" style="padding:13px 16px">
+                  <div class="dist-row"><span class="dist-label">G1</span><div class="prog" style="flex:1"><div class="prog-fill" style="width:20%;background:#cbd5e1"></div></div><span style="font-size:10px;color:var(--ink-light)">2名</span></div>
+                  <div class="dist-row"><span class="dist-label">G2</span><div class="prog" style="flex:1"><div class="prog-fill" style="width:50%;background:#93c5fd"></div></div><span style="font-size:10px;color:var(--ink-light)">5名</span></div>
+                  <div class="dist-row"><span class="dist-label">G3</span><div class="prog" style="flex:1"><div class="prog-fill" style="width:90%;background:var(--accent)"></div></div><span style="font-size:10px;color:var(--ink-light)">9名</span></div>
+                  <div class="dist-row"><span class="dist-label">S4</span><div class="prog" style="flex:1"><div class="prog-fill" style="width:50%;background:var(--teal)"></div></div><span style="font-size:10px;color:var(--ink-light)">5名</span></div>
+                  <div class="dist-row"><span class="dist-label">S5</span><div class="prog" style="flex:1"><div class="prog-fill" style="width:30%;background:#0e7490"></div></div><span style="font-size:10px;color:var(--ink-light)">3名</span></div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header"><div class="card-title">最終更新</div></div>
+                <div class="card-body" style="padding:12px 16px">
+                  <div class="kv-row"><span class="kv-k">更新者</span><span class="kv-v">青山 太郎</span></div>
+                  <div class="kv-row"><span class="kv-k">更新日</span><span class="kv-v">2026 / 03 / 04</span></div>
+                  <div class="kv-row"><span class="kv-k">バージョン</span><span class="kv-v">v2.1</span></div>
+                  <div class="kv-row"><span class="kv-k">次回レビュー</span><span class="kv-v">2026 / 04 / 01</span></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════ SCREEN B-1: ENGINEER / 次のグレード要件タブ ═══════════ -->
+<div class="sep">Screen B-1 — マイロードマップ / 次のグレード（S4）要件タブ（エンジニア）</div>
+<div class="section-wrap">
+  <div class="chrome">
+    <div class="chrome-bar">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <div class="url-bar">app.flb-eval.internal / my / roadmap#next</div>
+    </div>
+    <div class="app-shell">
+      <div class="sidebar">
+        <div class="sidebar-logo">FLB<em>.</em>Eval</div>
+        <div class="sidebar-sec">
+          <div class="sidebar-sec-label">メニュー</div>
+          <div class="nav-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>ダッシュボード</div>
+          <div class="nav-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>目標管理</div>
+          <div class="nav-item active"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>マイロードマップ</div>
+        </div>
+        <div class="sidebar-foot">
+          <div class="av av-sm" style="background:#6366f1">田</div>
+          <div><div class="user-name">田中 亮</div><div class="user-role">エンジニア / G3</div></div>
+        </div>
+      </div>
+
+      <div class="main">
+        <div class="topbar">
+          <div class="topbar-title">マイロードマップ</div>
+          <div class="topbar-actions">
+            <span style="font-size:11px;color:var(--ink-light)">現在</span>
+            <span class="badge badge-blue" style="font-size:12px;padding:4px 12px;font-family:'DM Mono',monospace">G3</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ink-light)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            <span style="font-size:11px;color:var(--teal);font-weight:600">S4 を目指す中</span>
+          </div>
+        </div>
+
+        <div class="content">
+
+          <!-- HERO -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:18px">
+            <div class="card" style="padding:14px 16px">
+              <div style="font-size:10px;font-weight:700;color:var(--ink-light);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">現在のグレード</div>
+              <div style="font-size:26px;font-weight:700;font-family:'DM Mono',monospace;color:var(--accent);line-height:1">G3</div>
+              <div style="font-size:11px;color:var(--ink-light);margin-top:3px">ミドル / 〜90万円 / 月</div>
+            </div>
+            <div class="card" style="padding:14px 16px">
+              <div style="font-size:10px;font-weight:700;color:var(--ink-light);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">S4 要件の充足状況</div>
+              <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:5px">2 / 3 項目 承認済</div>
+              <div class="prog" style="height:6px"><div class="prog-fill" style="width:66%;background:var(--accent)"></div></div>
+            </div>
+            <div class="card" style="padding:14px 16px">
+              <div style="font-size:10px;font-weight:700;color:var(--ink-light);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">顧客評価スコア（直近）</div>
+              <div style="font-size:26px;font-weight:700;font-family:'DM Mono',monospace;color:var(--green);line-height:1">4.2</div>
+              <div style="font-size:11px;color:var(--ink-light);margin-top:3px">/ 5.0　S4要件 4.0以上 ✓</div>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div>
+              <div class="card">
+                <div class="tabs">
+                  <div class="tab active">次のグレード（S4）要件</div>
+                  <div class="tab">達成済み実績</div>
+                  <div class="tab">組織貢献記録</div>
+                </div>
+                <div class="card-body">
+
+                  <div class="notice notice-blue">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    <span>各要件はすべて <strong>「何をもたらしたか（成果）」で定義</strong> されています。派遣先の技術スタックや業務内容に関わらず、同じ基準で実績を申告できます。</span>
+                  </div>
+
+                  <!-- TRACK SELECT -->
+                  <div style="margin-bottom:16px">
+                    <div style="font-size:11px;font-weight:700;color:var(--ink-mid);margin-bottom:8px">専門トラック（S4以降）</div>
+                    <div style="display:flex;gap:8px">
+                      <div style="flex:1;padding:9px 12px;border:1px solid var(--border);border-radius:7px;background:var(--bg);text-align:center;cursor:pointer">
+                        <div style="font-size:11px;font-weight:600;color:var(--ink-mid)">📊 可視化</div>
+                        <div style="font-size:10px;color:var(--ink-light);margin-top:2px">BIダッシュボード</div>
+                      </div>
+                      <div style="flex:1;padding:9px 12px;border:2px solid var(--teal);border-radius:7px;background:var(--teal-lt);text-align:center;cursor:pointer">
+                        <div style="font-size:11px;font-weight:700;color:var(--teal)">⚙️ インフラ</div>
+                        <div style="font-size:10px;color:var(--teal);margin-top:2px">パイプライン・基盤</div>
+                        <div style="font-size:9px;color:var(--teal);font-weight:700;margin-top:2px">← 希望トラック</div>
+                      </div>
+                      <div style="flex:1;padding:9px 12px;border:1px solid var(--border);border-radius:7px;background:var(--bg);text-align:center;cursor:pointer">
+                        <div style="font-size:11px;font-weight:600;color:var(--ink-mid)">🛡 品質保守</div>
+                        <div style="font-size:10px;color:var(--ink-light);margin-top:2px">DQM・テスト</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="divider"></div>
+
+                  <!-- CRITERIA CHECK LIST -->
+                  <div style="display:flex;flex-direction:column;gap:10px">
+
+                    <!-- ✓ DONE -->
+                    <div style="display:flex;align-items:flex-start;gap:10px;padding:11px 13px;background:var(--green-lt);border:1px solid #bbf7d0;border-radius:8px">
+                      <div style="width:18px;height:18px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px">
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                      </div>
+                      <div style="flex:1">
+                        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+                          <span style="font-size:12px;font-weight:600;color:var(--green)">顧客評価スコア 4.0以上</span>
+                          <span class="badge badge-green" style="margin-left:auto">承認済</span>
+                        </div>
+                        <div style="font-size:11px;color:var(--ink-mid)">直近スコア：<strong>4.2 / 5.0</strong>　2026 / 01 / 22 承認</div>
+                      </div>
+                    </div>
+
+                    <!-- ✓ PENDING -->
+                    <div style="display:flex;align-items:flex-start;gap:10px;padding:11px 13px;background:var(--amber-lt);border:1px solid #fde68a;border-radius:8px">
+                      <div style="width:18px;height:18px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px">
+                        <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                      </div>
+                      <div style="flex:1">
+                        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+                          <span style="font-size:12px;font-weight:600;color:var(--amber)">顧客ビジネスへの定量的貢献（1件実証）</span>
+                          <span class="badge badge-amber" style="margin-left:auto">承認待ち</span>
+                        </div>
+                        <div style="font-size:11px;color:var(--ink-mid)">「データパイプライン自動化 — 処理時間50%削減」申請中 (2026 / 03 / 04)</div>
+                      </div>
+                    </div>
+
+                    <!-- ✗ NOT YET -->
+                    <div style="display:flex;align-items:flex-start;gap:10px;padding:11px 13px;background:#fafbfc;border:1px solid var(--border);border-radius:8px">
+                      <div style="width:18px;height:18px;border-radius:50%;border:2px solid var(--border);background:var(--white);flex-shrink:0;margin-top:2px"></div>
+                      <div style="flex:1">
+                        <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">
+                          <span style="font-size:12px;font-weight:600;color:var(--ink-light)">専門トラック確定・宣言</span>
+                          <span class="badge badge-gray" style="margin-left:auto">未登録</span>
+                        </div>
+                        <div style="font-size:11px;color:var(--ink-light)">マネージャー面談での合意後に実績として登録してください</div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="divider"></div>
+
+                  <!-- REACH NOTE -->
+                  <div style="background:var(--bg);border-radius:7px;padding:10px 12px;border:1px solid var(--border)">
+                    <div style="font-size:10px;color:var(--ink-light);margin-bottom:4px">S4 到達で変わること</div>
+                    <div style="font-size:11px;color:var(--ink-mid);line-height:1.8">
+                      • 単価帯：<strong>〜120万円 / 月</strong><br>
+                      • 専門トラック（インフラ）の案件優先配置<br>
+                      • 昇給査定への反映（次回：2026年 7月）
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT -->
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div class="card">
+                <div class="card-header"><div class="card-title">評価スコア</div></div>
+                <div class="card-body" style="padding:13px 16px;display:flex;flex-direction:column;gap:9px">
+                  <div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:11px;color:var(--ink-mid)">顧客評価</span><span style="font-size:11px;font-weight:700;color:var(--green)">4.2 / 5.0</span></div>
+                    <div class="prog" style="height:5px"><div class="prog-fill" style="width:84%;background:var(--green)"></div></div>
+                  </div>
+                  <div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:11px;color:var(--ink-mid)">自走タスク比率</span><span style="font-size:11px;font-weight:700;color:var(--accent)">81%</span></div>
+                    <div class="prog" style="height:5px"><div class="prog-fill" style="width:81%;background:var(--accent)"></div></div>
+                  </div>
+                  <div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:11px;color:var(--ink-mid)">納期遵守率</span><span style="font-size:11px;font-weight:700;color:var(--accent)">94%</span></div>
+                    <div class="prog" style="height:5px"><div class="prog-fill" style="width:94%;background:var(--accent)"></div></div>
+                  </div>
+                  <div class="divider" style="margin:4px 0"></div>
+                  <div>
+                    <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:11px;color:var(--ink-mid)">組織貢献</span><span style="font-size:11px;font-weight:600;color:var(--amber)">3件 / 期</span></div>
+                    <div style="font-size:10px;color:var(--amber)">※ 単価に非反映・個人記録</div>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header"><div class="card-title">🤖 AIによる1次判定</div></div>
+                <div class="card-body" style="padding:12px 14px">
+                  <div style="font-size:11px;color:var(--ink-mid);margin-bottom:8px;line-height:1.6">あなたの自由記述実績をAIが要件に自動マッピングします。承認はマネージャーが行います。</div>
+                  <div style="background:var(--ai-lt);border:1px solid var(--ai-border);border-radius:7px;padding:10px 12px">
+                    <div style="font-size:10px;font-weight:700;color:var(--ai);margin-bottom:4px">直近の判定結果</div>
+                    <div style="font-size:11px;color:#4c1d95;line-height:1.6">「パイプライン自動化」の実績 → <strong>S4要件「定量的貢献」</strong> に該当<span class="ai-confidence">確信度 87%</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════ SCREEN B-2: ENGINEER / 達成済み実績タブ ═══════════ -->
+<div class="sep">Screen B-2 — マイロードマップ / 達成済み実績タブ（エンジニア）</div>
+<div class="section-wrap" style="padding-bottom:48px">
+  <div class="chrome">
+    <div class="chrome-bar">
+      <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+      <div class="url-bar">app.flb-eval.internal / my / roadmap#achievements</div>
+    </div>
+    <div class="app-shell">
+      <div class="sidebar">
+        <div class="sidebar-logo">FLB<em>.</em>Eval</div>
+        <div class="sidebar-sec">
+          <div class="sidebar-sec-label">メニュー</div>
+          <div class="nav-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>ダッシュボード</div>
+          <div class="nav-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>目標管理</div>
+          <div class="nav-item active"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>マイロードマップ</div>
+        </div>
+        <div class="sidebar-foot">
+          <div class="av av-sm" style="background:#6366f1">田</div>
+          <div><div class="user-name">田中 亮</div><div class="user-role">エンジニア / G3</div></div>
+        </div>
+      </div>
+
+      <div class="main">
+        <div class="topbar">
+          <div class="topbar-title">マイロードマップ</div>
+          <div class="topbar-actions">
+            <button class="btn btn-primary">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              実績を新規登録
+            </button>
+          </div>
+        </div>
+
+        <div class="content">
+          <div class="two-col">
+            <div>
+              <div class="card">
+                <div class="tabs">
+                  <div class="tab">次のグレード（S4）要件</div>
+                  <div class="tab active">達成済み実績</div>
+                  <div class="tab">組織貢献記録</div>
+                </div>
+                <div class="card-body">
+
+                  <div class="notice notice-ai">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    <span>実績は<strong>自由記述で登録</strong>できます。AIがグレード要件への該当を1次判定し、マネージャーが承認します。派遣先の技術・業務内容は問いません。</span>
+                  </div>
+
+                  <!-- G2→G3 CLEARED -->
+                  <div style="margin-bottom:18px">
+                    <div class="record-section-label">
+                      <span>G2 → G3　昇格要件</span>
+                      <span class="badge badge-green">全要件 承認済</span>
+                    </div>
+
+                    <div class="rec-card approved">
+                      <div class="rec-header approved">
+                        <div class="rec-header-left">
+                          <div class="rec-status-dot rsd-green"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                          <span class="rec-req-label approved">顧客定期評価「期待通り」以上　2期連続</span>
+                        </div>
+                        <span class="badge badge-green">承認済</span>
+                      </div>
+                      <div class="rec-body">
+                        <div class="rec-title">2025年 Q2・Q3 顧客定期評価 連続「期待以上」獲得</div>
+                        <div class="rec-desc">Q2：業務への習熟が早く、指定外の改善も提案してくれると評価。Q3：独立して対応できるタスク範囲が広がったとの評価コメントあり。</div>
+                        <div class="ai-mapping">
+                          <span class="ai-mapping-label">🤖 AI判定</span>
+                          <span class="ai-mapping-body">G2要件「顧客評価2期連続」に該当と判定。<span class="ai-confidence">確信度 94%</span> — 顧客評価スコアの記録と整合しています。</span>
+                        </div>
+                        <div class="rec-meta">
+                          <div class="rec-date-pair"><div class="rec-date-label">登録日</div><div class="rec-date-val">2025 / 10 / 01</div></div>
+                          <div class="rec-date-pair"><div class="rec-date-label">承認日</div><div class="rec-date-val green">2025 / 10 / 09</div></div>
+                          <div style="margin-left:auto;display:flex;gap:5px;align-items:center"><span class="tag">顧客評価</span><span style="font-size:10px;color:var(--ink-light)">承認者：青山 太郎</span></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="rec-card approved">
+                      <div class="rec-header approved">
+                        <div class="rec-header-left">
+                          <div class="rec-status-dot rsd-green"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                          <span class="rec-req-label approved">上長への確認が月1回以下 / 自走タスク比率向上</span>
+                        </div>
+                        <span class="badge badge-green">承認済</span>
+                      </div>
+                      <div class="rec-body">
+                        <div class="rec-title">2025年 Q3 上長確認 月平均 0.8回 / 自走タスク比率 76%</div>
+                        <div class="rec-desc">タスク管理ツールのログより集計。前期（Q2）の月平均3.2回から大幅に減少。不明点を自己解決するプロセスが定着した。</div>
+                        <div class="ai-mapping">
+                          <span class="ai-mapping-label">🤖 AI判定</span>
+                          <span class="ai-mapping-body">G2要件「自走タスク比率向上・確認頻度低減」に該当と判定。<span class="ai-confidence">確信度 91%</span></span>
+                        </div>
+                        <div class="rec-meta">
+                          <div class="rec-date-pair"><div class="rec-date-label">登録日</div><div class="rec-date-val">2025 / 10 / 03</div></div>
+                          <div class="rec-date-pair"><div class="rec-date-label">承認日</div><div class="rec-date-val green">2025 / 10 / 10</div></div>
+                          <div style="margin-left:auto;display:flex;gap:5px;align-items:center"><span class="tag">自立性</span><span style="font-size:10px;color:var(--ink-light)">承認者：青山 太郎</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="divider"></div>
+
+                  <!-- G3→S4 IN PROGRESS -->
+                  <div style="margin-bottom:16px">
+                    <div class="record-section-label">
+                      <span>G3 → S4　昇格要件</span>
+                      <span class="badge badge-amber">1 / 3 承認済</span>
+                    </div>
+
+                    <!-- APPROVED -->
+                    <div class="rec-card approved">
+                      <div class="rec-header approved">
+                        <div class="rec-header-left">
+                          <div class="rec-status-dot rsd-green"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                          <span class="rec-req-label approved">顧客評価スコア 4.0以上</span>
+                        </div>
+                        <span class="badge badge-green">承認済</span>
+                      </div>
+                      <div class="rec-body">
+                        <div class="rec-title">2025年 Q4 顧客定期評価スコア 4.2 / 5.0</div>
+                        <div class="rec-desc">顧客担当者より「業務理解が深まり、指示なく動けるようになった。改善提案の質が上がっている」とのコメントあり。</div>
+                        <div class="ai-mapping">
+                          <span class="ai-mapping-label">🤖 AI判定</span>
+                          <span class="ai-mapping-body">S4要件「顧客評価 4.0以上」に該当と判定。<span class="ai-confidence">確信度 98%</span> — スコアが数値基準を明確に満たしています。</span>
+                        </div>
+                        <div class="rec-meta">
+                          <div class="rec-date-pair"><div class="rec-date-label">登録日</div><div class="rec-date-val">2026 / 01 / 15</div></div>
+                          <div class="rec-date-pair"><div class="rec-date-label">承認日</div><div class="rec-date-val green">2026 / 01 / 22</div></div>
+                          <div style="margin-left:auto;display:flex;gap:5px;align-items:center"><span class="tag">顧客評価</span><span style="font-size:10px;color:var(--ink-light)">承認者：青山 太郎</span></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- PENDING -->
+                    <div class="rec-card pending">
+                      <div class="rec-header pending">
+                        <div class="rec-header-left">
+                          <div class="rec-status-dot rsd-amber"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                          <span class="rec-req-label pending">顧客ビジネスへの定量的貢献（1件実証）</span>
+                        </div>
+                        <span class="badge badge-amber">承認待ち</span>
+                      </div>
+                      <div class="rec-body">
+                        <div class="rec-title">データパイプライン自動化による処理時間 50% 削減</div>
+                        <div class="rec-desc">Airflow導入によりデータ取り込み処理を2時間→58分に短縮。顧客の日次レポート配信が4時間前倒しになり、翌朝の意思決定に活用されるようになった。</div>
+                        <div class="ai-mapping">
+                          <span class="ai-mapping-label">🤖 AI判定</span>
+                          <span class="ai-mapping-body">S4要件「定量的貢献の実証」に該当と判定。<span class="ai-confidence">確信度 87%</span> — 処理時間50%削減という数値エビデンスが要件と合致。ビジネスインパクト（4時間前倒し）の記述も評価されます。</span>
+                        </div>
+                        <div class="rec-meta">
+                          <div class="rec-date-pair"><div class="rec-date-label">登録日</div><div class="rec-date-val">2026 / 03 / 04</div></div>
+                          <div class="rec-date-pair"><div class="rec-date-label">承認</div><div class="rec-date-val amber">確認中</div></div>
+                          <div style="margin-left:auto;display:flex;gap:5px;align-items:center"><span class="tag">顧客貢献</span><span class="tag">インフラ</span><span style="font-size:10px;color:var(--amber)">マネージャー確認中</span></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- NOT YET -->
+                    <div class="rec-card empty">
+                      <div class="rec-header empty">
+                        <div class="rec-header-left">
+                          <div class="rec-status-dot rsd-gray"></div>
+                          <span class="rec-req-label empty">専門トラック確定・宣言</span>
+                        </div>
+                        <span class="badge badge-gray">未登録</span>
+                      </div>
+                      <div class="rec-body" style="display:flex;align-items:center;justify-content:space-between">
+                        <span style="font-size:11px;color:var(--ink-light)">マネージャー面談での合意後に登録してください</span>
+                        <button class="btn" style="background:var(--accent-lt);color:var(--accent);border:1px solid #bfdbfe;font-size:11px;padding:5px 12px">
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                          実績を登録
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- ADD -->
+                  <div class="add-row">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    グレード要件に紐づく実績を新規登録
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT -->
+            <div style="display:flex;flex-direction:column;gap:14px">
+
+              <div class="card">
+                <div class="card-header"><div class="card-title">実績を新規登録</div></div>
+                <div class="card-body" style="padding:14px 16px">
+                  <div class="form-group">
+                    <label class="form-label">対象グレード要件</label>
+                    <select class="form-control">
+                      <option>G3→S4：顧客ビジネスへの定量的貢献</option>
+                      <option>G3→S4：専門トラック確定・宣言</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">実績タイトル</label>
+                    <input type="text" class="form-control" placeholder="例：〇〇の自動化により処理時間を△%削減">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">実績の詳細・インパクト <span style="color:#dc2626">*</span></label>
+                    <textarea class="form-control" placeholder="何をどう改善し、顧客・業務にどんな成果をもたらしたかを記述してください。技術手段ではなく成果・数値を中心に書くとAIの判定精度が上がります。"></textarea>
+                    <div style="font-size:10px;color:var(--ink-light);margin-top:4px">自由記述（技術スタック不問）— AIが要件へのマッピングを補助します</div>
+                  </div>
+                  <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:4px">
+                    <button class="btn btn-secondary" style="font-size:11px">下書き保存</button>
+                    <button class="btn btn-primary" style="font-size:11px">
+                      申請する
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header"><div class="card-title">🤖 AI判定について</div></div>
+                <div class="card-body" style="padding:12px 14px">
+                  <div style="font-size:11px;color:var(--ink-mid);line-height:1.7;margin-bottom:10px">
+                    入力した実績内容をAIが自動解析し、どのグレード要件に該当するかを1次判定します。
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:7px">
+                    <div style="display:flex;align-items:flex-start;gap:7px">
+                      <div style="width:16px;height:16px;border-radius:4px;background:var(--ai-lt);border:1px solid var(--ai-border);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><span style="font-size:9px;color:var(--ai);font-weight:700">1</span></div>
+                      <span style="font-size:11px;color:var(--ink-mid)">エンジニアが実績を自由記述</span>
+                    </div>
+                    <div style="display:flex;align-items:flex-start;gap:7px">
+                      <div style="width:16px;height:16px;border-radius:4px;background:var(--ai-lt);border:1px solid var(--ai-border);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><span style="font-size:9px;color:var(--ai);font-weight:700">2</span></div>
+                      <span style="font-size:11px;color:var(--ink-mid)">AIが要件への該当と確信度を判定</span>
+                    </div>
+                    <div style="display:flex;align-items:flex-start;gap:7px">
+                      <div style="width:16px;height:16px;border-radius:4px;background:var(--ai-lt);border:1px solid var(--ai-border);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><span style="font-size:9px;color:var(--ai);font-weight:700">3</span></div>
+                      <span style="font-size:11px;color:var(--ink-mid)">マネージャーがAI判定を参照し最終承認</span>
+                    </div>
+                  </div>
+                  <div style="margin-top:10px;font-size:10px;color:var(--ai);background:var(--ai-lt);border-radius:5px;padding:6px 8px;border:1px solid var(--ai-border)">
+                    ※ AI判定はあくまで1次補助です。最終判断は常にマネージャーが行います。
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>エンジニア定期評価フォーム — FLINTERS BASE</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:        #111318;
+  --ink-mid:    #505668;
+  --ink-light:  #9099ac;
+  --border:     #e3e6ee;
+  --bg:         #f4f5f9;
+  --white:      #ffffff;
+  --accent:     #1a4ff0;
+  --accent-lt:  #eef2fe;
+  --accent-mid: #3b6ef8;
+  --green:      #0f7b50;
+  --green-lt:   #edfaf4;
+  --amber:      #b45309;
+  --amber-lt:   #fffbeb;
+  --red:        #c5192d;
+  --red-lt:     #fff1f3;
+  --radius:     10px;
+  --shadow:     0 1px 4px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.06);
+  --shadow-lg:  0 2px 8px rgba(0,0,0,.06), 0 12px 40px rgba(0,0,0,.08);
+}
+
+body {
+  font-family: 'Noto Sans JP', 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 1px 0 var(--border);
+}
+.header-logo {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -.01em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.header-logo-mark {
+  width: 26px; height: 26px;
+  background: var(--accent);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+}
+.header-logo-mark svg { width: 14px; height: 14px; }
+.header-meta { font-size: 12px; color: var(--ink-light); }
+
+/* ── STEP NAV ── */
+.step-nav {
+  max-width: 680px;
+  margin: 32px auto 0;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+.step-item:last-child { flex: 0; }
+.step-dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+  font-family: 'DM Mono', monospace;
+  flex-shrink: 0;
+  transition: all .2s;
+}
+.step-dot.done    { background: var(--green); color: #fff; }
+.step-dot.active  { background: var(--accent); color: #fff; box-shadow: 0 0 0 4px var(--accent-lt); }
+.step-dot.pending { background: var(--white); color: var(--ink-light); border: 2px solid var(--border); }
+.step-label {
+  font-size: 11px; font-weight: 600;
+  white-space: nowrap;
+}
+.step-label.active  { color: var(--accent); }
+.step-label.pending { color: var(--ink-light); }
+.step-label.done    { color: var(--green); }
+.step-line {
+  flex: 1; height: 1px; background: var(--border); margin: 0 10px;
+}
+.step-line.done { background: var(--green); }
+
+/* ── CARD ── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ── MAIN ── */
+.main {
+  max-width: 680px;
+  margin: 24px auto 60px;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── ENGINEER CARD ── */
+.eng-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow);
+}
+.eng-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; font-weight: 700; color: #fff;
+  flex-shrink: 0;
+  font-family: 'DM Sans', sans-serif;
+}
+.eng-info { flex: 1; }
+.eng-name { font-size: 16px; font-weight: 600; margin-bottom: 3px; }
+.eng-meta { font-size: 12px; color: var(--ink-light); display: flex; gap: 14px; }
+.eng-meta span { display: flex; align-items: center; gap: 4px; }
+.eng-grade {
+  background: var(--accent-lt);
+  border: 1px solid #c7d7fd;
+  border-radius: 8px;
+  padding: 8px 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.eng-grade-val {
+  font-size: 20px; font-weight: 700;
+  font-family: 'DM Mono', monospace;
+  color: var(--accent);
+  line-height: 1;
+}
+.eng-grade-label { font-size: 10px; color: var(--accent); font-weight: 600; margin-top: 2px; }
+
+/* ── SECTION ── */
+.section-title {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ── GRADE CRITERIA BOX ── */
+.criteria-box {
+  background: var(--accent-lt);
+  border: 1px solid #c7d7fd;
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+.criteria-box-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 6px;
+}
+.criteria-list-items { display: flex; flex-direction: column; gap: 7px; }
+.criteria-item {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 12px; color: var(--ink-mid); line-height: 1.5;
+}
+.criteria-bullet {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent); flex-shrink: 0; margin-top: 6px;
+}
+
+/* ── 5-STAR RATING ── */
+.rating-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+.rating-label {
+  font-size: 13px; font-weight: 600; color: var(--ink);
+  margin-bottom: 2px;
+}
+.rating-desc { font-size: 11px; color: var(--ink-light); margin-bottom: 10px; }
+.rating-scale {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+.rating-opt {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+.rating-opt input { display: none; }
+.rating-opt-box {
+  width: 100%;
+  padding: 12px 6px 10px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: all .15s;
+  background: var(--white);
+}
+.rating-opt input:checked + .rating-opt-box {
+  border-color: var(--accent);
+  background: var(--accent-lt);
+  box-shadow: 0 0 0 2px var(--accent-lt);
+}
+.rating-opt-num {
+  font-size: 18px; font-weight: 700;
+  font-family: 'DM Mono', monospace;
+  color: var(--ink-light);
+  line-height: 1;
+}
+.rating-opt input:checked + .rating-opt-box .rating-opt-num { color: var(--accent); }
+.rating-opt-text {
+  font-size: 9px; font-weight: 600;
+  color: var(--ink-light);
+  text-align: center; line-height: 1.3;
+  letter-spacing: .02em;
+}
+.rating-opt input:checked + .rating-opt-box .rating-opt-text { color: var(--accent); }
+
+/* Rating selected state for demo */
+.rating-opt.selected .rating-opt-box {
+  border-color: var(--accent);
+  background: var(--accent-lt);
+}
+.rating-opt.selected .rating-opt-num { color: var(--accent); }
+.rating-opt.selected .rating-opt-text { color: var(--accent); }
+
+/* ── AXIS EVAL ── */
+.axis-row {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.axis-header {
+  padding: 12px 16px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 8px;
+}
+.axis-name { font-size: 12px; font-weight: 600; color: var(--ink); }
+.axis-tag-opt { font-size: 10px; color: var(--ink-light); }
+.axis-body { padding: 12px 16px; }
+
+/* ── PREV COMPARISON ── */
+.prev-compare {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 16px;
+}
+.prev-compare-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--ink-light); margin-bottom: 10px;
+}
+.prev-row {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 8px;
+}
+.prev-row:last-child { margin-bottom: 0; }
+.prev-name { font-size: 11px; color: var(--ink-mid); min-width: 80px; }
+.prev-bars { flex: 1; display: flex; align-items: center; gap: 8px; }
+.prev-bar-wrap { position: relative; flex: 1; }
+.prev-bar-bg { height: 6px; background: #e8eaf0; border-radius: 99px; overflow: hidden; }
+.prev-bar-fill { height: 100%; border-radius: 99px; transition: width .4s; }
+.prev-bar-fill.up   { background: var(--green); }
+.prev-bar-fill.same { background: #93c5fd; }
+.prev-bar-fill.down { background: var(--amber); }
+.prev-val { font-size: 11px; font-weight: 700; font-family: 'DM Mono', monospace; min-width: 20px; color: var(--ink); }
+.prev-diff {
+  font-size: 10px; font-weight: 700; min-width: 30px; text-align: right;
+}
+.prev-diff.up   { color: var(--green); }
+.prev-diff.same { color: var(--ink-light); }
+.prev-diff.down { color: var(--amber); }
+
+/* ── TEXTAREA ── */
+.form-group { margin-bottom: 14px; }
+.form-label {
+  font-size: 11px; font-weight: 700; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--ink-mid); margin-bottom: 6px;
+  display: flex; align-items: center; gap: 6px;
+}
+.opt-tag {
+  font-size: 9px; font-weight: 600; color: var(--ink-light);
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 3px; padding: 1px 5px; text-transform: none; letter-spacing: 0;
+}
+textarea {
+  width: 100%; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 10px 14px; font-size: 13px; color: var(--ink);
+  font-family: 'Noto Sans JP', sans-serif;
+  resize: vertical; min-height: 80px; line-height: 1.6;
+  transition: border-color .15s;
+}
+textarea:focus { outline: none; border-color: var(--accent); background: var(--white); }
+.char-hint { font-size: 10px; color: var(--ink-light); margin-top: 4px; }
+
+/* ── SERVICE EVAL ── */
+.service-box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  box-shadow: var(--shadow);
+}
+.service-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.service-desc  { font-size: 12px; color: var(--ink-light); margin-bottom: 20px; line-height: 1.6; }
+
+/* ── CONFIRM ── */
+.confirm-block {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.confirm-header {
+  padding: 14px 20px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  font-size: 12px; font-weight: 700; color: var(--ink-mid);
+  letter-spacing: .06em; text-transform: uppercase;
+}
+.confirm-row {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding: 12px 20px;
+  border-bottom: 1px solid #f0f2f7;
+  font-size: 13px;
+}
+.confirm-row:last-child { border-bottom: none; }
+.confirm-key { min-width: 140px; color: var(--ink-light); font-size: 12px; font-weight: 500; padding-top: 1px; }
+.confirm-val { color: var(--ink); flex: 1; line-height: 1.6; }
+.confirm-score {
+  font-size: 15px; font-weight: 700;
+  font-family: 'DM Mono', monospace;
+  color: var(--accent);
+}
+
+/* ── BADGE ── */
+.badge {
+  display: inline-flex; align-items: center; gap: 3px;
+  padding: 2px 8px; border-radius: 100px;
+  font-size: 10px; font-weight: 600;
+}
+.badge-green { background: var(--green-lt); color: var(--green); }
+.badge-blue  { background: var(--accent-lt); color: var(--accent); }
+.badge-amber { background: var(--amber-lt); color: var(--amber); }
+
+/* ── BUTTONS ── */
+.btn-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 24px;
+  border-top: 1px solid var(--border);
+  background: var(--white);
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 22px; border-radius: 8px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  font-family: inherit; border: none; transition: all .15s;
+}
+.btn-primary {
+  background: var(--accent); color: #fff;
+  box-shadow: 0 1px 3px rgba(26,79,240,.3);
+}
+.btn-primary:hover { background: var(--accent-mid); }
+.btn-ghost {
+  background: transparent; color: var(--ink-light);
+  border: 1px solid var(--border);
+}
+.btn-submit {
+  background: var(--green); color: #fff;
+  padding: 12px 32px; font-size: 14px;
+  box-shadow: 0 2px 6px rgba(15,123,80,.25);
+}
+
+/* ── DIVIDER ── */
+.divider { height: 1px; background: var(--border); margin: 18px 0; }
+
+/* ── NOTICE ── */
+.notice {
+  display: flex; gap: 8px; padding: 10px 14px;
+  border-radius: 8px; font-size: 12px; line-height: 1.6;
+  margin-bottom: 16px;
+}
+.notice-blue { background: var(--accent-lt); color: var(--accent); border: 1px solid #c7d7fd; }
+.notice-amber { background: var(--amber-lt); color: var(--amber); border: 1px solid #fde68a; }
+
+/* ── PAGE TABS ── */
+.page-tabs {
+  display: flex; gap: 4px;
+  background: #e8eaef; border-radius: 10px; padding: 4px;
+  margin-bottom: 4px;
+}
+.page-tab {
+  flex: 1; padding: 7px 12px; border-radius: 7px;
+  font-size: 11px; font-weight: 600; text-align: center; cursor: pointer;
+  color: var(--ink-light); transition: all .15s;
+}
+.page-tab.active { background: var(--white); color: var(--ink); box-shadow: var(--shadow); }
+
+/* STEP CONTENT */
+.step-content { display: none; }
+.step-content.active { display: block; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-logo">
+    <div class="header-logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    </div>
+    FLINTERS BASE
+  </div>
+  <div class="header-meta">エンジニア定期評価フォーム　2026年 Q1</div>
+</div>
+
+<!-- STEP NAV -->
+<div class="step-nav">
+  <div class="step-item">
+    <div class="step-dot active" id="dot-1">1</div>
+    <div class="step-label active" id="label-1">個人評価</div>
+  </div>
+  <div class="step-line" id="line-1"></div>
+  <div class="step-item">
+    <div class="step-dot pending" id="dot-2">2</div>
+    <div class="step-label pending" id="label-2">サービス評価</div>
+  </div>
+  <div class="step-line" id="line-2"></div>
+  <div class="step-item">
+    <div class="step-dot pending" id="dot-3">3</div>
+    <div class="step-label pending" id="label-3">確認・送信</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- ══ STEP 1: 個人評価 ══ -->
+  <div class="step-content active" id="step-1">
+
+    <!-- エンジニア情報 -->
+    <div class="eng-card">
+      <div class="eng-avatar">田</div>
+      <div class="eng-info">
+        <div class="eng-name">田中 亮</div>
+        <div class="eng-meta">
+          <span>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            派遣開始：2024年 4月
+          </span>
+          <span>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            評価期間：2026年 Q1（1〜3月）
+          </span>
+          <span>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+            担当：青山 太郎
+          </span>
+        </div>
+      </div>
+      <div class="eng-grade">
+        <div class="eng-grade-val">G3</div>
+        <div class="eng-grade-label">ミドル</div>
+      </div>
+    </div>
+
+    <!-- グレード基準 -->
+    <div class="card" style="padding:20px 24px">
+
+      <div class="section-title">G3 グレード基準</div>
+
+      <div class="criteria-box">
+        <div class="criteria-box-label">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg>
+          G3（ミドル）に期待される成果
+        </div>
+        <div class="criteria-list-items">
+          <div class="criteria-item">
+            <div class="criteria-bullet"></div>
+            顧客業務に対して自発的な改善提案を行い、採用・実施された実績がある
+          </div>
+          <div class="criteria-item">
+            <div class="criteria-bullet"></div>
+            上長の介入なしで完結したタスクが全体の80%以上を占めている
+          </div>
+          <div class="criteria-item">
+            <div class="criteria-bullet"></div>
+            顧客から直接相談・依頼を受けられる信頼関係が構築されている
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">総合評価</div>
+
+      <div class="rating-wrap">
+        <div class="rating-label">田中さんのパフォーマンスについて教えてください</div>
+        <div class="rating-desc">1：基準に達していない　→　5：基準を大きく上回っている</div>
+        <div class="rating-scale">
+          <label class="rating-opt">
+            <input type="radio" name="grade-rating" value="1">
+            <div class="rating-opt-box">
+              <div class="rating-opt-num">1</div>
+              <div class="rating-opt-text">基準に<br>達していない</div>
+            </div>
+          </label>
+          <label class="rating-opt">
+            <input type="radio" name="grade-rating" value="2">
+            <div class="rating-opt-box">
+              <div class="rating-opt-num">2</div>
+              <div class="rating-opt-text">基準に<br>近づいている</div>
+            </div>
+          </label>
+          <label class="rating-opt">
+            <input type="radio" name="grade-rating" value="3">
+            <div class="rating-opt-box">
+              <div class="rating-opt-num">3</div>
+              <div class="rating-opt-text">概ね<br>満たしている</div>
+            </div>
+          </label>
+          <label class="rating-opt selected">
+            <input type="radio" name="grade-rating" value="4" checked>
+            <div class="rating-opt-box">
+              <div class="rating-opt-num">4</div>
+              <div class="rating-opt-text">基準を<br>満たしている</div>
+            </div>
+          </label>
+          <label class="rating-opt">
+            <input type="radio" name="grade-rating" value="5">
+            <div class="rating-opt-box">
+              <div class="rating-opt-num">5</div>
+              <div class="rating-opt-text">基準を大きく<br>上回っている</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section-title">項目別コメント</div>
+
+      <!-- 顧客貢献 -->
+      <div class="axis-row">
+        <div class="axis-header">
+          <div class="axis-name">業務への貢献</div>
+          <span style="font-size:10px;font-weight:700;color:var(--red)">必須</span>
+        </div>
+        <div class="axis-body">
+          <div class="form-group" style="margin-bottom:0">
+            <textarea required placeholder="業務に役立った場面や、印象に残った貢献があればご記入ください。&#10;改善提案の採用状況、業務へのインパクト、期待以上の貢献があれば合わせてご記入ください。" rows="3">Lookerダッシュボードの構成見直しを自発的に提案し、週次レポートの作成工数が大幅に削減された。担当範囲外の業務にも積極的に関わろうとする姿勢が見られる。</textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- 自立性 -->
+      <div class="axis-row" style="margin-top:10px">
+        <div class="axis-header">
+          <div class="axis-name">主体性</div>
+          <span style="font-size:10px;font-weight:700;color:var(--red)">必須</span>
+        </div>
+        <div class="axis-body">
+          <div class="form-group" style="margin-bottom:0">
+            <textarea required placeholder="自分から動いてくれた場面や、頼もしいと感じた場面があればご記入ください。&#10;指示なく動ける場面の変化、確認・相談の頻度の変化などをご記入ください。" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- コミュニケーション -->
+      <div class="axis-row" style="margin-top:10px">
+        <div class="axis-header">
+          <div class="axis-name">連携・コミュニケーション</div>
+          <span style="font-size:10px;font-weight:700;color:var(--red)">必須</span>
+        </div>
+        <div class="axis-body">
+          <div class="form-group" style="margin-bottom:0">
+            <textarea required placeholder="やりとりのしやすさや、チームへの馴染み方についてご記入ください。&#10;報連相の質・頻度、チームとの協調性などをご記入ください。" rows="3"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="section-title">全体コメント</div>
+      <div class="form-group">
+        <div class="form-label">今期の総評 <span class="opt-tag">任意</span></div>
+        <textarea placeholder="グレード基準・項目にかかわらず、今期の働きぶり全体についてご自由にお書きください。" rows="4">全体的にG3の基準をしっかりと満たしており、改善提案の質も上がってきている。次のステップ（S4）に向けてより大きなインパクトの実績を積んでほしい。</textarea>
+        <div class="char-hint">派遣元のマネージャーおよびエンジニア本人に共有されます</div>
+      </div>
+
+    </div>
+
+    <!-- 前回比較 -->
+    <div class="prev-compare">
+      <div class="prev-compare-label">前回（2025年 Q4）との比較</div>
+      <div class="prev-row">
+        <div class="prev-name">グレード基準評価</div>
+        <div class="prev-bars">
+          <div class="prev-bar-wrap">
+            <div class="prev-bar-bg"><div class="prev-bar-fill up" style="width:80%"></div></div>
+          </div>
+          <div class="prev-val">4</div>
+        </div>
+        <div class="prev-diff up">▲ +1</div>
+      </div>
+    </div>
+
+    <div class="btn-row card">
+      <button class="btn btn-ghost" onclick="goStep(0)">← 戻る</button>
+      <button class="btn btn-primary" onclick="goStep(2)">次へ：サービス評価 →</button>
+    </div>
+
+  </div>
+
+  <!-- ══ STEP 2: サービス評価 ══ -->
+  <div class="step-content" id="step-2">
+
+    <div class="service-box">
+      <div class="section-title">FLB へのフィードバック</div>
+      <div class="service-title">サービス全体の費用対効果</div>
+      <div class="service-desc">このセクションはエンジニア個人への評価ではなく、FLINTERS BASEのサービス・契約全体に対するフィードバックです。</div>
+
+      <div class="notice notice-blue">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>いただいた評価は単価設定の参考とし、エンジニアへの還元・改善に活用します。個人の評価スコアとは切り離して管理されます。</span>
+      </div>
+
+      <div class="rating-wrap">
+        <div class="rating-label">現在の契約単価に対して、提供されている価値は見合っていますか？</div>
+        <div class="rating-desc">1：全く見合っていない　→　5：非常に見合っている</div>
+        <div class="rating-scale">
+          <label class="rating-opt">
+            <input type="radio" name="service-rating" value="1">
+            <div class="rating-opt-box">
+              <div class="rating-opt-num">1</div>
+              <div class="rating-opt-text">全く<br>見合わない</div>
+            </div>
+          </label>
+          <label class="rating-opt">
+            <input type="radio" name="service-rating" value="2">
+            <div class="rating-opt-box">
+              <div class="rating-opt-num">2</div>
+              <div class="rating-opt-text">やや<br>見合わない</div>
+            </div>
+          </label>
+          <label class="rating-opt selected">
+            <input type="radio" name="service-rating" value="3" checked>
+            <div class="rating-opt-box">
+              <div class="rating-opt-num">3</div>
+              <div class="rating-opt-text">概ね<br>見合っている</div>
+            </div>
+          </label>
+          <label class="rating-opt">
+            <input type="radio" name="service-rating" value="4">
+            <div class="rating-opt-box">
+              <div class="rating-opt-num">4</div>
+              <div class="rating-opt-text">見合って<br>いる</div>
+            </div>
+          </label>
+          <label class="rating-opt">
+            <input type="radio" name="service-rating" value="5">
+            <div class="rating-opt-box">
+              <div class="rating-opt-num">5</div>
+              <div class="rating-opt-text">非常に<br>見合っている</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="form-group">
+        <div class="form-label">FLBへのコメント・要望 <span class="opt-tag">任意</span></div>
+        <textarea placeholder="サポート体制、担当者との連携、契約・運用面でのご意見・ご要望があればご記入ください。" rows="4"></textarea>
+      </div>
+
+      <!-- 前回比較 -->
+      <div class="prev-compare">
+        <div class="prev-compare-label">前回（2025年 Q4）との比較</div>
+        <div class="prev-row">
+          <div class="prev-name">費用対効果</div>
+          <div class="prev-bars">
+            <div class="prev-bar-wrap">
+              <div class="prev-bar-bg"><div class="prev-bar-fill same" style="width:60%"></div></div>
+            </div>
+            <div class="prev-val">3</div>
+          </div>
+          <div class="prev-diff same">— 前回同</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row card">
+      <button class="btn btn-ghost" onclick="goStep(1)">← 戻る</button>
+      <button class="btn btn-primary" onclick="goStep(3)">次へ：確認・送信 →</button>
+    </div>
+
+  </div>
+
+  <!-- ══ STEP 3: 確認・送信 ══ -->
+  <div class="step-content" id="step-3">
+
+    <div class="notice notice-amber">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0;margin-top:1px"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span>送信後の内容変更はできません。内容をご確認のうえ送信してください。</span>
+    </div>
+
+    <!-- 個人評価 -->
+    <div class="confirm-block">
+      <div class="confirm-header">個人評価　— 田中 亮（G3）</div>
+      <div class="confirm-row">
+        <div class="confirm-key">グレード基準評価</div>
+        <div class="confirm-val">
+          <span class="confirm-score">4 / 5</span>
+          <span style="font-size:12px;color:var(--ink-light);margin-left:8px">基準を満たしている</span>
+          <span class="badge badge-green" style="margin-left:8px">▲ 前回比 +1</span>
+        </div>
+      </div>
+      <div class="confirm-row">
+        <div class="confirm-key">顧客貢献コメント</div>
+        <div class="confirm-val" style="font-size:12px;color:var(--ink-mid)">Lookerダッシュボードの構成見直しを自発的に提案し、週次レポートの作成工数が大幅に削減された。担当範囲外の業務にも積極的に関わろうとする姿勢が見られる。</div>
+      </div>
+      <div class="confirm-row">
+        <div class="confirm-key">自立性コメント</div>
+        <div class="confirm-val" style="font-size:12px;color:var(--ink-light);font-style:italic">（未記入）</div>
+      </div>
+      <div class="confirm-row">
+        <div class="confirm-key">コミュニケーション</div>
+        <div class="confirm-val" style="font-size:12px;color:var(--ink-light);font-style:italic">（未記入）</div>
+      </div>
+      <div class="confirm-row">
+        <div class="confirm-key">全体コメント</div>
+        <div class="confirm-val" style="font-size:12px;color:var(--ink-mid)">全体的にG3の基準をしっかりと満たしており、改善提案の質も上がってきている。次のステップ（S4）に向けてより大きなインパクトの実績を積んでほしい。</div>
+      </div>
+    </div>
+
+    <!-- サービス評価 -->
+    <div class="confirm-block">
+      <div class="confirm-header">サービス評価　— FLBへのフィードバック</div>
+      <div class="confirm-row">
+        <div class="confirm-key">費用対効果</div>
+        <div class="confirm-val">
+          <span class="confirm-score">3 / 5</span>
+          <span style="font-size:12px;color:var(--ink-light);margin-left:8px">概ね見合っている</span>
+          <span class="badge badge-blue" style="margin-left:8px">— 前回同</span>
+        </div>
+      </div>
+      <div class="confirm-row">
+        <div class="confirm-key">コメント</div>
+        <div class="confirm-val" style="font-size:12px;color:var(--ink-light);font-style:italic">（未記入）</div>
+      </div>
+    </div>
+
+    <!-- 送信先 -->
+    <div class="confirm-block">
+      <div class="confirm-header">送信先・共有範囲</div>
+      <div class="confirm-row">
+        <div class="confirm-key">共有先</div>
+        <div class="confirm-val" style="font-size:12px;color:var(--ink-mid);line-height:1.8">
+          FLINTERS BASE 担当マネージャー（青山 太郎）<br>
+          <span style="color:var(--ink-light)">※ 個人評価スコア・コメントはエンジニア本人（田中 亮）にも開示されます</span><br>
+          <span style="color:var(--ink-light)">※ サービス評価はFLB社内のみで参照します</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row card">
+      <button class="btn btn-ghost" onclick="goStep(2)">← 戻る</button>
+      <button class="btn btn-submit" onclick="goStep(4)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        評価を送信する
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ══ STEP 4: 送信完了 ══ -->
+  <div class="step-content" id="step-4">
+    <div class="card" style="padding:48px 32px;text-align:center">
+      <div style="width:56px;height:56px;background:var(--green-lt);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div style="font-size:18px;font-weight:700;margin-bottom:8px">送信が完了しました</div>
+      <div style="font-size:13px;color:var(--ink-light);line-height:1.8;margin-bottom:24px">
+        評価内容を受け付けました。<br>
+        担当マネージャー（青山 太郎）に通知されます。<br>
+        次回評価：2026年 Q2（4〜6月）
+      </div>
+      <div style="font-size:12px;color:var(--ink-light)">このページを閉じていただいて構いません。</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function goStep(n) {
+  document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+  if (n >= 1) document.getElementById('step-' + n).classList.add('active');
+  if (n === 4) document.getElementById('step-4').classList.add('active');
+
+  const dots   = [null, 'dot-1','dot-2','dot-3'];
+  const labels = [null, 'label-1','label-2','label-3'];
+  const lines  = [null, 'line-1','line-2'];
+
+  const states = ['pending','pending','pending'];
+  if (n >= 1) states[0] = n === 1 ? 'active' : 'done';
+  if (n >= 2) states[1] = n === 2 ? 'active' : 'done';
+  if (n >= 3) states[2] = n === 3 ? 'active' : 'done';
+
+  for (let i = 0; i < 3; i++) {
+    const dot = document.getElementById(dots[i+1]);
+    const lbl = document.getElementById(labels[i+1]);
+    dot.className = 'step-dot ' + states[i];
+    lbl.className = 'step-label ' + states[i];
+    if (states[i] === 'done') dot.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+    else dot.innerHTML = (i+1);
+  }
+  for (let i = 0; i < 2; i++) {
+    const line = document.getElementById(lines[i+1]);
+    line.className = 'step-line ' + (n > i+1 ? 'done' : '');
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Rating click interaction
+document.querySelectorAll('.rating-opt').forEach(opt => {
+  opt.addEventListener('click', function() {
+    const group = this.querySelector('input').name;
+    document.querySelectorAll(`input[name="${group}"]`).forEach(inp => {
+      inp.closest('.rating-opt').classList.remove('selected');
+    });
+    this.classList.add('selected');
+  });
+});
+</script>
+
+</body>
+</html>
